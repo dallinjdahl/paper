@@ -1,0 +1,18 @@
+#!/bin/sh
+nowdata="$(calcurse -Q --format-recur-apt '%(start:%p%I.%M): %m\n' --format-recur-event '. %m\n' \
+	 --format-apt '%(start:%p%I.%M): %m\n' --format-event '. %m\n' --input-datefmt 1 -s$(date +'%m/%d/%Y'))"
+tomdata="$(calcurse -Q --filter-type event,recur-event --format-event '- %m\n' \
+	--format-recur-event '- %m\n' --input-datefmt 1 -s$(date -dtomorrow +'%m/%d/%Y') | egrep '^\+')"
+
+nowev=$(echo "$nowdata" | egrep "^=")
+tomev=$(echo "$tomdata" | egrep "^+")
+am=$(echo "$nowdata" | egrep '^AM' | cut -c 3-) 
+pm=$(echo "$nowdata" | egrep '^PM' | cut -c 3-)
+
+echo "$nowev"
+echo "$tomdata"
+echo AM
+echo "$am"
+echo
+echo PM
+echo "$pm"

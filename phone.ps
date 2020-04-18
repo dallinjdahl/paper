@@ -1,0 +1,71 @@
+%!PS
+/in { 72 mul } bind def
+/d= {dup =} def
+/cury {currentpoint exch pop} def
+/dec {dup load 1 sub store} def
+/char {0 get} def
+/pageTop 4.25 in def
+/Top {/top exch def} def .35 in Top
+/Left {/left exch def} def .25 in Left
+/Nline {/nline exch def} def 12 Nline
+/nl {show left cury nline sub moveto} def
+
+/toOrigin {left pageTop top sub moveto} def
+
+/fontsz { dup /Courier findfont exch scalefont setfont
+			dup 5 div add Nline} def
+
+/next {/i exch def /body exch def
+	{i 0 eq {exit} if /i dec body } loop} def
+
+/runend { {infile read not {exit} if (\n) char eq {exit} if} loop } def
+
+/neol true def
+/linein {  0 1 buffer length 1 sub
+	{buffer exch infile read  
+		not { pop pop exit} if
+		dup (\n) char eq {/neol false def pop pop pop exit} if
+		put}
+	for neol {7777 = runend} if} def
+
+/File {/infile exch (r) file def} def
+
+/Buffer {/buffer exch string def} def
+/clrbuffer {/buffer buffer length string def} def
+/title {16 Buffer linein buffer 18 fontsz nl} def
+/body { 10 fontsz 21 {28 Buffer linein buffer nl} repeat } def
+/p1 { gsave 2.75 in 0 translate 
+	toOrigin (p1) File title body
+	grestore } def
+/p2 { gsave 5.5 in 8.5 in translate 180 rotate
+	toOrigin (p2) File title body
+	grestore } def
+/p3 { gsave 2.75 in 8.5 in translate 180 rotate
+	toOrigin (p3) File title body
+	grestore } def
+/p4 { gsave 0 0 translate 
+	toOrigin (p4) File title body
+	grestore } def
+/p5 { gsave 5.5 in 4.25 in translate 
+	toOrigin (p5) File title body
+	grestore } def
+/p6 { gsave 8.25 in 4.25 in translate 
+	toOrigin (p6) File title body
+	grestore } def
+/p7 { gsave 5.5 in 0 translate 
+	toOrigin (p7) File title body
+	grestore } def
+/p8 { gsave 8.25 in 0 translate 
+	toOrigin (p8) File title body
+	grestore } def
+<< /PageSize [ 11 in 8.5 in ] >> setpagedevice
+%(Dallin's Phone) show
+p1
+p2
+p3
+p4
+p5
+p6
+p7
+p8
+showpage

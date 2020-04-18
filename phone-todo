@@ -1,0 +1,8 @@
+#!/bin/sh
+[ -f daily ] && sed -e 's/^/-- /' daily
+todo="$(calcurse -Q --filter-type todo --filter-uncompleted --format-todo '-- %m\n' --input-datefmt 1 -s$(date +'%m/%d/%Y') | egrep '^--')"
+[ ! -z "$todo" ] && echo "$todo"
+echo '--'
+echo '--'
+echo '--'
+echo '--'

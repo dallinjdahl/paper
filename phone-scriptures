@@ -1,0 +1,7 @@
+#!/bin/sh
+
+num=$(date +'%U')
+
+echo "$(sed -n -e '1p' scriptures/$1/$num)"
+echo "$(tail -n +2 scriptures/$1/$num | fmt -w28)"
+

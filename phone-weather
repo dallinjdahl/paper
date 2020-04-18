@@ -1,0 +1,15 @@
+chour=$(date +%k)
+max=$((16 - $chour))
+[[ $max -lt "0" ]] && max=$(($max + 24))
+
+min=$((4 - $chour))
+[[ $min -lt "0" ]] && min=$(($min + 24))
+
+highd=$(finger o:"$1"+$max@graph.no)
+cond=$(echo "$highd" | egrep -o ': [0-9]+ C,.*,' | egrep -o ',.*,' | egrep -o '[^,]+')
+low=$(finger o:"$1"+$min@graph.no | egrep -o ': [0-9]+ C' | egrep -o '[0-9]+')
+high=$(echo "$highd" | egrep -o ': [0-9]+ C' | egrep -o '[0-9]+')
+low=$(echo "$low 9*5/32+p" | dc)
+high=$(echo "$high 9*5/32+p" | dc)
+echo $low/$high
+echo $cond
