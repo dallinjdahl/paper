@@ -1,3 +1,4 @@
+#!/bin/sh
 chour=$(date +%k)
 max=$((16 - $chour))
 [[ $max -lt "0" ]] && max=$(($max + 24))
